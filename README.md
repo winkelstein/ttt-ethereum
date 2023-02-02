@@ -1,13 +1,32 @@
-# Sample Hardhat Project
+# ttt-ethereum
 
-This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, and a script that deploys that contract.
+Tic-Tac-Toe game based on Ethereum blockchain.
+---
 
-Try running some of the following tasks:
+## Smart contract section
 
+### Clone
 ```shell
-npx hardhat help
-npx hardhat test
-REPORT_GAS=true npx hardhat test
-npx hardhat node
-npx hardhat run scripts/deploy.ts
+git clone https://github.com/treug0lnik041/ttt-ethereum.git && cd ttt-ethereum/ && npm i
 ```
+
+### Compile
+```shell
+npx hardhat compile
+```
+I strongly recommend you to install hh by using command below:
+```shell
+npm install --global hardhat-shorthand
+```
+and after that you can use just 'hh' instead of 'npx hardhat' just like that:
+```shell
+hh compile
+```
+
+### Test
+```shell
+hh test
+```
+---
+
+## Frontend section
