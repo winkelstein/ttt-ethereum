@@ -4,7 +4,7 @@ import Square from "../Square/Square";
 import "./Board.css";
 
 function Board() {
-	const [squares, setSquares] = useState(new Array<Array<Cell>>);
+	const [squares, setSquares] = useState(new Array<Array<Cell>>());
 
 	useEffect(() => {
 		setSquares([[Cell.None, Cell.None, Cell.None], [Cell.None, Cell.None, Cell.None], [Cell.None, Cell.None, Cell.None]]);
