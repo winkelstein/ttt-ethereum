@@ -66,11 +66,33 @@ contract TicTacToe is ITicTacToe {
         return games[_gameId].cells;
     }
 
+    /// @notice Returns whose turn in _gameId game right now
+    /// @dev if game is already over then this function returns turn of the loser
+    /// @param _gameId specifies index of game in games array
+    /// @return turn address right now
+    function whoseTurn(uint256 _gameId) public view returns(address) {
+        require(games[_gameId].state == State.Active);
+        return games[_gameId].turn;
+    }
+
+    /// @notice Returns winner address of _gameId
+    /// @dev check whoseTurn function above for further information
+    /// @param _gameId specifies index of game in games array
+    /// @return winner address of won game
+    function winner(uint256 _gameId) public view returns(address) {
+        Game storage _game = games[_gameId];
+        require(_game.state == State.Won, "This game has no winner");
+        if (_game.turn == _game.players[0])
+            return _game.players[1];
+        else return _game.players[0];
+    }
+
     /// @notice create new game and invite user _opponent to it
-    /// @dev emits Start event but could be declined. Client should listen all events and gets _gameId from it
+    /// @dev emits Start event but invitation could be declined. Client should listen all events and gets _gameId from it
     /// @param _opponent should be account address of your opponent
     function invite(address _opponent) external {
         require(_opponent != address(0), "Opponent cannot be address of 0");
+        require(_opponent != msg.sender, "You cannot play with yourself");
         Cell[3][3] memory _cells;
         Game memory _game = Game(
             [msg.sender, _opponent],
@@ -87,6 +109,7 @@ contract TicTacToe is ITicTacToe {
     /// @param _gameId specifies index of game in games array
     function acceptInvitation(uint256 _gameId) external {
         Game storage _game = games[_gameId];
+        require(_game.state == State.PlayerIsNotReady, "Game is already over");
         require(
             msg.sender == _game.players[1],
             "You are not invited to this game"

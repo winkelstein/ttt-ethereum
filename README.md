@@ -1,6 +1,7 @@
 # ttt-ethereum
 
 Tic-Tac-Toe game based on Ethereum blockchain.
+
 ---
 
 ## Smart contract section
@@ -49,4 +50,4 @@ In second terminal:
 npx hardhat run --network localhost scripts/deploy.ts
 ```
 
-Second command gives contract address that you have to provide to the CONTRACT_ADDRESS in frontend/src/web3-sdk/Contract.ts file.
+Second command gives contract address that you have to provide to the const CONTRACT_ADDRESS in frontend/src/web3-sdk/Contract.ts file.

@@ -1,5 +1,5 @@
 import { ethers } from "ethers";
-import artifacts from "./artifacts.json";
+const artifacts = require("./artifact.json");
 
 const CONTRACT_ADDRESS = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
 
