@@ -121,6 +121,7 @@ describe("TicTacToe", function () {
 
 			expect(gameInfo.state).to.eql(State.Won);
 			expect(await ttt.winCount(otherAccount.address)).to.equal(1);
+			expect(await ttt.winner(gameId)).to.equal(otherAccount.address);
 		});
 
 		it("Tie", async function () {

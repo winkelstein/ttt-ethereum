@@ -8,7 +8,7 @@ function GameSelector() {
 	return (
 		<div>
 			{gameIds.length > 0 ? 
-				gameIds.map((gameId) => <GameBlock gameId={gameId}/>) : 
+				gameIds.map((gameId) => <GameBlock key={gameId} gameId={gameId}/>) : 
 			<h1>Looks like no one wants to play with you.</h1> }
 		</div>
 	)

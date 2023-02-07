@@ -66,6 +66,14 @@ class Contract {
 	async play(gameId: string | number, x: number, y: number) {
 		return this.contract.play(gameId, x, y);
 	}
+
+	async whoseTurn(gameId: string | number) {
+		return this.contract.whoseTurn(gameId);
+	}
+
+	async winner(gameId: string | number) {
+		return this.contract.winner(gameId);
+	}
 }
 
 export default Contract;

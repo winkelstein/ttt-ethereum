@@ -2,20 +2,32 @@ import React, { useState } from 'react';
 import './App.css';
 
 import ConnectToMetamask from './components/ConnectToMetamask/ConnectToMetamask';
-import Contract from './web3-sdk/Contract';
+import ContractContext from "./web3-sdk/Context";
 import Game from "./components/Game/Game";
 import Sidebar from "./components/Sidebar/Sidebar";
+import Contract from './web3-sdk/Contract';
 
 function App() {
-	// TODO: useContext for contract and maybe currentGameId
-	const [contract, setContract] = useState<Contract | undefined>();
+	const [contract, setContract] = useState<Contract | undefined>(undefined);
 	const [currentGameId, setCurrentGameId] = useState<string | undefined>(undefined);
 
 	return (
 		<div className="App">
-			{contract ?
-				<><Sidebar /><Game contract={contract} gameId={currentGameId} /></> :
-				<ConnectToMetamask setContract={setContract} />}
+			<ContractContext.Provider value={{
+				contract: { 
+					contract,
+					setContract
+				},
+				currentGameId: {
+					currentGameId,
+					setCurrentGameId
+				}
+			}}>
+				{contract ?
+					<><Sidebar/><Game/></> :
+					<ConnectToMetamask/>
+				}
+			</ContractContext.Provider>
 		</div>
 	);
 }

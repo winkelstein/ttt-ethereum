@@ -3,7 +3,9 @@ import styles from "./GameCreator.module.css";
 import Input from '../../UI/Input/Input';
 import Button from '../../UI/Button/Button';
 
+
 function GameCreator() {
+	// TODO: disable button until string is valid address
 	const [opponent, setOpponent] = useState("");
 
 	const buttonHandler = () => {
@@ -13,7 +15,7 @@ function GameCreator() {
 
 	return (
 		<div className={styles.gameCreator}>
-			<Input placeholder="enter opponent address" onChange={(e: any) => setOpponent(e.target.value)}/>
+			<Input placeholder="Enter opponent address" onChange={(e: any) => setOpponent(e.target.value)}/>
 			<Button style={{"marginTop": "10px", "width": "100%"}} onClick={buttonHandler}>Create new game</Button>
 		</div>
 	)
