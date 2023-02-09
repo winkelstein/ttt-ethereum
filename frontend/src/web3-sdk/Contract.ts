@@ -1,5 +1,5 @@
 import { ethers } from "ethers";
-const artifacts = require("./artifact.json");
+import artifacts from "./artifact.json";
 
 const CONTRACT_ADDRESS = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
 
@@ -17,7 +17,7 @@ export enum Cell {
 	O
 }
 
-export type Game = {
+export type GameInfo = {
 	players: string[2],
 	state: State,
 	turn: string,
@@ -26,9 +26,11 @@ export type Game = {
 
 class Contract {
 	public contract: ethers.Contract;
+	public signer: ethers.JsonRpcSigner;
 
 	constructor(signer: ethers.JsonRpcSigner) {
 		this.contract = new ethers.Contract(CONTRACT_ADDRESS, artifacts.abi, signer);
+		this.signer = signer; 
 	}
 
 	// View methods
@@ -38,7 +40,7 @@ class Contract {
 	}
 
 	async getGameInfo(gameId: string | number) {
-		return this.contract.getGameInfo(gameId) as Promise<Game>;
+		return this.contract.getGameInfo(gameId) as Promise<GameInfo>;
 	}
 
 	async totalGamesCount() {
@@ -47,6 +49,14 @@ class Contract {
 
 	async getGameField(gameId: string | number) {
 		return this.contract.getGameField(gameId) as Promise<Cell[][]>;
+	}
+
+	async whoseTurn(gameId: string | number) {
+		return this.contract.whoseTurn(gameId);
+	}
+
+	async winner(gameId: string | number) {
+		return this.contract.winner(gameId);
 	}
 
 	// Change methods
@@ -65,14 +75,6 @@ class Contract {
 
 	async play(gameId: string | number, x: number, y: number) {
 		return this.contract.play(gameId, x, y);
-	}
-
-	async whoseTurn(gameId: string | number) {
-		return this.contract.whoseTurn(gameId);
-	}
-
-	async winner(gameId: string | number) {
-		return this.contract.winner(gameId);
 	}
 }
 

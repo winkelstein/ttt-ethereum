@@ -10,6 +10,7 @@
 	align-items: flex-start;
 	align-content: flex-start;
 	transition: 0.2s;
+	overflow-y: scroll;
 }
 
 .sidebar .sidebar__content {

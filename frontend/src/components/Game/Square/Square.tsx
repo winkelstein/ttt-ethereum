@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { Cell } from "../../../web3-sdk/Contract";
 import "./Square.css";
 
-function Square({ cell, onClick } : { cell: Cell, onClick: React.MouseEventHandler<HTMLButtonElement> } ) {
-	const [isDisabled, setIsDisabled] = useState(false);
+function Square({ cell, onClick, disabled } : { cell: Cell, onClick: React.MouseEventHandler<HTMLButtonElement>, disabled: boolean } ) {
+	const [isDisabled, setIsDisabled] = useState(disabled);
 
 	const convertCellToChar = () => {
 		switch (cell) {
