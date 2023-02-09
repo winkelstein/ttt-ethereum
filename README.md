@@ -37,7 +37,7 @@ In metamask you have to select network that you need.
 
 Contract deployed to:
 - [x] Localhost
-- [ ] Goerli testnet
+- [x] Goerli testnet
 
 ### Localhost
 In first terminal:
@@ -50,4 +50,4 @@ In second terminal:
 npx hardhat run --network localhost scripts/deploy.ts
 ```
 
-Second command gives contract address that you have to provide to the const CONTRACT_ADDRESS in frontend/src/web3-sdk/Contract.ts file.
+Don't forget to change network in your MetaMask to avoid losses.
