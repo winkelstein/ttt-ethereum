@@ -6,6 +6,7 @@ import GameContext from '../../web3-sdk/Context';
 import Button from '../UI/Button/Button';
 
 function Game() {
+	// TODO: end game if there is a winner
 	const game = useContext(GameContext);
 	const [cells, setCells] = useState(new Array<Array<Cell>>());
 	const [isBoardDisabled, setIsBoardDisabled] = useState(true);
