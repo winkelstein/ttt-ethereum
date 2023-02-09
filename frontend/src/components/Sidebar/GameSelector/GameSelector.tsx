@@ -11,10 +11,11 @@ function GameSelector() {
 	useEffect(() => {
 		game?.contract.contract?.contract.on('Start', async (player1: string, player2: string, gameId: string) => {
 			console.log(`${player1} with ${player2} in game ${gameId}`);
-			if (player2 === await game.contract.contract?.signer.getAddress()) {
+			if (player2 === game.contract.contract?.signer.address) {
 				// @ts-ignore: Object is possibly 'null'.
 				if ((await game.contract.contract?.getGameInfo(gameId)).state === State.PlayerIsNotReady) {
-					setGameIds([...gameIds, gameId]);
+					const _gameId = gameId.toString(); 
+					setGameIds([...gameIds, _gameId]);
 				}
 			}
 		});

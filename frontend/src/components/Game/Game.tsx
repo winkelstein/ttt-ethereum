@@ -10,6 +10,7 @@ function Game() {
 	const game = useContext(GameContext);
 	const [cells, setCells] = useState(new Array<Array<Cell>>());
 	const [isBoardDisabled, setIsBoardDisabled] = useState(true);
+	const [winner, setWinner] = useState<string | undefined>(undefined);
 
 	useEffect(() => {
 		if (game?.currentGameId.currentGameId)
@@ -19,6 +20,16 @@ function Game() {
 			if (game.currentGameId.currentGameId === gameId)
 				setIsBoardDisabled(false);
 		});
+
+		game?.contract.contract?.contract.on("Won", (winner, gameId) => {
+			if (game.currentGameId.currentGameId === gameId) 
+				setWinner(winner);
+		});
+
+		game?.contract.contract?.contract.on("Tie", (gameId) => {
+			if (game.currentGameId.currentGameId === gameId)
+				setWinner("Tie");
+		})
 	}, [game?.contract.contract, game?.currentGameId.currentGameId]);
 
 	const setSquareHanler = async (x: number, y: number) => {
@@ -40,6 +51,7 @@ function Game() {
 	if (game?.currentGameId.currentGameId) {
 		return (
 			<div className="game">
+				{winner ? (winner === "Tie") ? winner : <h1>{winner} has won</h1> : ""}
 				<Board disabled={isBoardDisabled} squares={cells} setSquares={setSquareHanler}/>
 				<Button styles={{"marginTop": "20px"}} onClick={declineButton}>Close</Button>
 			</div>
