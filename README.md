@@ -37,7 +37,7 @@ In metamask you have to select network that you need.
 
 Contract deployed to:
 - [x] Localhost
-- [x] Goerli testnet
+- [x] Goerli testnet ([Etherscan page](https://goerli.etherscan.io/address/0x7c55B17b2567168FFf0D904b4B7c7B779a96ec5E))
 
 ### Localhost
 In first terminal:

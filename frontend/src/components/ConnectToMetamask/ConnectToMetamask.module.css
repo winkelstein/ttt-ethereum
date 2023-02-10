@@ -10,7 +10,7 @@
 	flex-direction: column;
 	justify-content: center;
 
-	overflow-y: scroll;
+	overflow-y: hidden;
 
 	margin: auto;
 	margin-top: 20%;

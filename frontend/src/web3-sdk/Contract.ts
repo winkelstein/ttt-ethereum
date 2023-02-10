@@ -9,7 +9,7 @@ export enum State {
 	Won,
 	Tie,
 	PlayerIsNotReady,
-	Decline
+	Declined
 }
 
 export enum Cell {
@@ -25,9 +25,26 @@ export type GameInfo = {
 	cells: Cell[][]
 };
 
+type EventType = "Start" | "AcceptInvitation" | "Won" | "Turn" | "Tie" | "Declined";
+
+class EventListener {
+	public event: EventType;
+	public handler: NodeJS.Timer;
+
+	constructor(event: EventType, handler: NodeJS.Timer) {
+		this.event = event;
+		this.handler = handler;
+	}
+
+	off() {
+		clearInterval(this.handler);
+	}
+}
 class Contract {
 	public contract: ethers.Contract;
 	public signer: ethers.JsonRpcSigner;
+
+	private listeners: EventListener[];
 
 	constructor(signer: ethers.JsonRpcSigner) {
 		switch (signer.provider._network.chainId.toString()) {
@@ -36,6 +53,26 @@ class Contract {
 			default: this.contract = new ethers.Contract(CONTRACT_ADDRESS_HARDHAT, artifacts.abi, signer); window.alert("This network is not supported. Choose Goerli or Hardhat (localnode) and refresh page"); break;
 		}
 		this.signer = signer; 
+		this.listeners = [];
+	}
+
+	on(event: EventType, listener: (logs: (ethers.EventLog | ethers.Log)[]) => void) {
+		this.listeners.push(new EventListener(event, setInterval(() => this.contract.queryFilter(event, 0, "latest").then(listener), 1000)));
+	}
+
+	off(event?: EventType) {
+		if (event) {
+			// eslint-disable-next-line array-callback-return
+			this.listeners.map((listener, index) => {
+				if (listener.event === event) {
+					listener.off();
+					this.listeners.splice(index);
+				}
+			})
+		} else {
+			this.listeners.map((listener) => listener.off());
+			this.listeners = [];
+		}
 	}
 
 	// View methods

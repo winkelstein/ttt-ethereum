@@ -3,21 +3,23 @@ import styles from "./GameSelector.module.css";
 import GameBlock from "./GameBlock/GameBlock";
 import GameContext from '../../../web3-sdk/Context';
 import { State } from '../../../web3-sdk/Contract';
-
+import  'ethers-utils';
 function GameSelector() {
 	const game = useContext(GameContext);
 	const [ gameIds, setGameIds ] = useState(new Array<string>());
 
 	useEffect(() => {
-		game?.contract.contract?.contract.on('Start', async (player1: string, player2: string, gameId: string) => {
-			console.log(`${player1} with ${player2} in game ${gameId}`);
-			if (player2 === game.contract.contract?.signer.address) {
+		game?.contract.contract?.on("Start", (logs) => {
+			logs.map(async (log) => {
+				const player2: string = (log as any).args[1];
+				const gameId = (log as any).args[2];
+
 				// @ts-ignore: Object is possibly 'null'.
-				if ((await game.contract.contract?.getGameInfo(gameId)).state === State.PlayerIsNotReady) {
-					const _gameId = gameId.toString(); 
-					setGameIds([...gameIds, _gameId]);
+				// eslint-disable-next-line eqeqeq
+				if (player2.toLowerCase() === game.contract.contract?.signer.address && (await game.contract.contract?.getGameInfo(gameId)).state == State.PlayerIsNotReady) {
+					setGameIds([...gameIds, gameId]);
 				}
-			}
+			});
 		});
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);

@@ -1,4 +1,4 @@
-import React from "react";
+import React  from "react";
 import { Cell } from "../../../web3-sdk/Contract";
 import Square from "../Square/Square";
 import "./Board.css";

@@ -23,8 +23,14 @@ function App() {
 					setCurrentGameId
 				}
 			}}>
-				{contract ?
-					<><Sidebar/><Game/></> :
+				{contract && currentGameId ?
+					<><Sidebar/><Game/></> : contract ? <><Sidebar/><h1 style={{'minHeight': '100vh',
+																				'width': '100%',
+																				'display': 'flex',
+																				'justifyContent': 'center',
+																				'alignItems': 'center',
+																				'flexDirection': 'column'
+																			  }}>Select game or create a new one.</h1></> :
 					<ConnectToMetamask/>
 				}
 			</ContractContext.Provider>

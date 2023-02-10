@@ -1,21 +1,22 @@
-import React, { useState } from "react";
+/* eslint-disable eqeqeq */
+import React from "react";
 import { Cell } from "../../../web3-sdk/Contract";
 import "./Square.css";
 
 function Square({ cell, onClick, disabled } : { cell: Cell, onClick: React.MouseEventHandler<HTMLButtonElement>, disabled: boolean } ) {
-	const [isDisabled, setIsDisabled] = useState(disabled);
-
 	const convertCellToChar = () => {
-		switch (cell) {
-			// Empty symbol needs because without it styles become strange
-			case Cell.None: return 'ㅤ';
-			case Cell.X: { setIsDisabled(true); return 'X'; }
-			case Cell.O: { setIsDisabled(true); return 'O'; }
+		// Strange symbol is needed because without it styles become strange
+		if (cell == Cell.None) return 'ㅤ';
+		else if (cell == Cell.X) {
+			return 'X';
+		} 
+		else if (cell == Cell.O) {
+			return 'O';
 		}
 	}
 
 	return (
-		<button className="square" onClick={onClick} disabled={isDisabled}>
+		<button className="square" onClick={onClick} disabled={disabled}>
 			{convertCellToChar()}
 		</button>
 	);
