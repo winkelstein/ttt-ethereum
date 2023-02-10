@@ -1,0 +1,33 @@
+.btn {
+	font: inherit;
+	background-color: white;
+	color: black;
+	padding: 5px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	cursor: pointer;
+	font-size: 1.25rem;
+	margin: 0;
+	width: fit-content;
+	min-width: 95%;
+	border: none;
+	border-radius: 10px;
+	margin-bottom: 10px;
+}
+
+.btn:active {
+	filter: brightness(0.9);
+}
+
+.btn:disabled {
+	cursor: not-allowed;
+}
+
+.btn:disabled:active {
+	filter: none;
+}
+
+.btn:disabled:hover {
+	filter: brightness(0.6);
+}
