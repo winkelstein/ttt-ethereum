@@ -2,6 +2,7 @@
   "name": "ttt-ethereum",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://treug0lnik041.github.io/ttt-ethereum",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
@@ -17,6 +18,8 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build --repo https://github.com/treug0lnik041/ttt-ethereum",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -43,6 +46,7 @@
   "devDependencies": {
     "ethers": "^6.0.0",
     "ethers-utils": "^2.1.11",
+    "gh-pages": "^5.0.0",
     "web3": "^1.8.2"
   }
 }
